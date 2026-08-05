@@ -243,38 +243,8 @@
     padding: 0 8px;
   }
 
-  /* Big events */
-  .events-section{
-    margin-top: 20px;
-    padding-top: 16px;
-    border-top: 1px solid var(--border);
-  }
-  .events-title{
-    font-family: var(--font-mono);
-    font-size: 11px;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-bottom: 10px;
-    display: block;
-  }
-  .event-add-row input[type="date"]{
-    flex: none;
-    width: 132px;
-    background: var(--surface-2);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    color: var(--text);
-    font-family: var(--font-mono);
-    font-size: 12.5px;
-    padding: 0 8px;
-  }
-  .event-row{
-    display: flex; align-items: center; gap: 10px;
-    padding: 7px 2px;
-  }
-  .event-row .ename{ flex: 1; font-size: 13.5px; }
-  .event-row .ecount{
+  /* Event countdown pill, used inside the day modal */
+  .ecount{
     font-family: var(--font-mono);
     font-size: 11px;
     color: var(--cyan);
@@ -283,8 +253,7 @@
     border-radius: 10px;
     white-space: nowrap;
   }
-  .event-row.past .ename{ color: var(--text-muted); }
-  .event-row.past .ecount{ color: var(--text-muted); background: var(--surface-2); }
+  .modal-add-event{ margin-top: 0; }
 
   /* Calendar */
   .cal-header{
@@ -335,14 +304,13 @@
   .cal-cell.future{
     background: var(--score-none);
     color: var(--text-muted);
-    cursor: default;
-    opacity: 0.5;
+    opacity: 0.55;
   }
   .cal-cell.nodata{
     background: var(--score-none);
     color: var(--text-muted);
   }
-  .cal-cell:not(.pad):not(.future):hover{
+  .cal-cell:not(.pad):hover{
     transform: scale(1.06);
     border-color: var(--accent);
   }
@@ -424,6 +392,7 @@
     font-size: 14px; padding: 5px 0;
     display:flex; align-items:center; gap: 8px;
   }
+  .modal-task .name{ flex: 1; }
   .modal-task .mark{ font-size: 13px; }
   .modal-task.done .mark{ color: var(--score-100); }
   .modal-task.missed .mark{ color: var(--score-0); }
@@ -438,63 +407,73 @@
   }
 
   /* ---- Landscape: fit everything in the viewport, no page scroll ---- */
-  @media (orientation: landscape) and (max-height: 640px){
+  @media (orientation: landscape) and (max-height: 820px){
     html, body{ height: 100%; overflow: hidden; }
-    body{ padding: 10px 18px; }
-    .wrap{ height: calc(100vh - 20px); max-width: 1200px; display: flex; flex-direction: column; }
+    body{ padding: 8px 16px; }
+    .wrap{
+      max-width: 1200px;
+      display: flex;
+      flex-direction: column;
+      height: calc(100vh - 16px);
+      height: calc(100dvh - 16px);
+    }
 
-    header.top{ padding-bottom: 8px; margin-bottom: 10px; flex: none; }
+    header.top{ padding-bottom: 6px; margin-bottom: 8px; flex: none; }
     .eyebrow{ display: none; }
-    h1{ font-size: 22px; }
-    .today-date{ margin-top: 2px; font-size: 11px; }
-    .today-score .big{ font-size: 20px; }
+    h1{ font-size: 20px; }
+    .today-date{ margin-top: 2px; font-size: 10.5px; }
+    .today-score .big{ font-size: 18px; }
 
-    .grid{ flex: 1; min-height: 0; gap: 14px; }
+    /* The real fix: give the grid a definite, fillable row and make
+       items stretch into it, instead of shrink-to-fit (the default
+       align-items:start), so min-height:0 further down actually works. */
+    .grid{
+      flex: 1;
+      min-height: 0;
+      gap: 12px;
+      grid-template-rows: minmax(0, 1fr);
+      align-items: stretch;
+    }
 
     .card{
-      padding: 12px 16px;
+      padding: 10px 14px;
       display: flex;
       flex-direction: column;
       min-height: 0;
       overflow: hidden;
     }
-    .card h2{ flex: none; font-size: 14px; margin-bottom: 6px; }
+    .card h2{ flex: none; font-size: 13px; margin-bottom: 4px; }
 
     #taskList{ flex: 1; overflow-y: auto; min-height: 0; }
-    .task-row{ padding: 5px 4px; }
+    .task-row{ padding: 4px 4px; }
 
-    .add-row{ flex: none; margin-top: 8px; }
-    .add-row input[type="text"], .add-btn, .time-toggle{ padding-top: 0; padding-bottom: 0; height: 32px; }
-    .time-input{ height: 32px; }
+    .add-row{ flex: none; margin-top: 6px; }
+    .add-row input[type="text"], .add-btn, .time-toggle{ padding-top: 0; padding-bottom: 0; height: 30px; }
+    .time-input{ height: 30px; }
 
-    .cal-header{ flex: none; margin-bottom: 8px; }
-    .cal-title{ font-size: 14px; }
-    .nav-btn{ width: 24px; height: 24px; font-size: 12px; }
-    .dow-row{ flex: none; margin-bottom: 4px; gap: 4px; }
+    .cal-header{ flex: none; margin-bottom: 6px; }
+    .cal-title{ font-size: 13px; }
+    .nav-btn{ width: 22px; height: 22px; font-size: 12px; }
+    .dow-row{ flex: none; margin-bottom: 3px; gap: 4px; }
     .dow{ font-size: 9px; }
-    .cal-grid{ flex: none; gap: 4px; }
-    .cal-cell{ font-size: 10px; }
 
-    .legend{ flex: none; margin-top: 8px; padding-top: 8px; gap: 8px; font-size: 9px; }
-
-    .events-section{
+    /* Cells fill whatever vertical room is left instead of being
+       forced square by aspect-ratio (which was pushing content past
+       the bottom of the screen). */
+    .cal-grid{
       flex: 1;
-      display: flex;
-      flex-direction: column;
       min-height: 0;
-      margin-top: 8px;
-      padding-top: 8px;
-      overflow: hidden;
+      display: grid;
+      grid-template-rows: repeat(6, 1fr);
+      gap: 3px;
     }
-    .events-title{ flex: none; margin-bottom: 4px; }
-    .event-add-row{ flex: none; }
-    #eventList{ flex: 1; overflow-y: auto; min-height: 0; }
-    .event-row{ padding: 3px 2px; }
+    .cal-cell{ aspect-ratio: unset; font-size: 10px; }
 
-    .status-line{ flex: none; margin-top: 6px; font-size: 10px; }
+    .legend{ flex: none; margin-top: 6px; padding-top: 6px; gap: 6px; font-size: 8.5px; }
+    .status-line{ flex: none; margin-top: 4px; font-size: 9.5px; }
   }
-  @media (orientation: landscape) and (max-height: 640px) and (max-width: 760px){
-    .grid{ grid-template-rows: 1fr 1fr; overflow: hidden; }
+  @media (orientation: landscape) and (max-height: 820px) and (max-width: 760px){
+    .grid{ grid-template-rows: minmax(0, 1fr) minmax(0, 1fr); }
   }
 </style>
 </head>
@@ -544,16 +523,6 @@
         <span><span class="sw" style="background:var(--score-0)"></span>0–39%</span>
         <span><span class="sw" style="background:var(--score-none)"></span>no data</span>
         <span><span class="sw" style="background:var(--cyan)"></span>event</span>
-      </div>
-
-      <div class="events-section">
-        <span class="events-title">Big events</span>
-        <div class="add-row event-add-row">
-          <input type="text" id="newEventInput" placeholder="Event name" maxlength="60">
-          <input type="date" id="newEventDate">
-          <button class="add-btn" id="addEventBtn" aria-label="Add event">+</button>
-        </div>
-        <div id="eventList"></div>
       </div>
     </div>
   </div>
@@ -833,153 +802,140 @@
       else cls += scoreClass(pct);
       if(ds === tStr) cls += ' today-ring';
       cell.className = cls;
-
-      if(dayEvents.length){
-        cell.addEventListener('click', () => openEventModal(dayEvents, ds));
-      } else if(!isFuture){
-        cell.addEventListener('click', () => openDayModal(ds));
-      }
+      cell.addEventListener('click', () => openDayModal(ds));
       grid.appendChild(cell);
     }
-  }
-
-  function renderEvents(){
-    const list = document.getElementById('eventList');
-    list.innerHTML = '';
-    const tStr = todayStr();
-    const sorted = [...state.events].sort((a,b) => a.date < b.date ? -1 : 1);
-    sorted.forEach(ev => {
-      const diff = daysUntil(ev.date);
-      const row = document.createElement('div');
-      row.className = 'event-row' + (diff < 0 ? ' past' : '');
-      const dateObj = new Date(ev.date + 'T00:00:00');
-      const nice = dateObj.toLocaleDateString(undefined, { month:'short', day:'numeric' });
-
-      const name = document.createElement('div');
-      name.className = 'ename';
-      name.textContent = ev.name + ' · ' + nice;
-
-      const count = document.createElement('span');
-      count.className = 'ecount';
-      count.textContent = countdownLabel(diff);
-
-      const del = document.createElement('button');
-      del.className = 'icon-btn';
-      del.setAttribute('aria-label','Delete event');
-      del.textContent = '✕';
-      del.addEventListener('click', () => deleteEvent(ev.id));
-
-      row.appendChild(name);
-      row.appendChild(count);
-      row.appendChild(del);
-      list.appendChild(row);
-    });
-  }
-
-  async function addEvent(){
-    const nameInput = document.getElementById('newEventInput');
-    const dateInput = document.getElementById('newEventDate');
-    const name = nameInput.value.trim();
-    const date = dateInput.value;
-    if(!name || !date) return;
-    state.events.push({ id: uid(), name, date });
-    nameInput.value = '';
-    dateInput.value = '';
-    setStatus('saving…');
-    await saveEvents();
-    renderEvents();
-    renderCalendar();
-    setStatus('saved');
   }
 
   async function deleteEvent(id){
     state.events = state.events.filter(e => e.id !== id);
     setStatus('saving…');
     await saveEvents();
-    renderEvents();
-    renderCalendar();
-    closeModal();
     setStatus('saved');
   }
 
-  function openEventModal(events, ds){
-    const overlay = document.getElementById('overlay');
-    const dateObj = new Date(ds + 'T00:00:00');
-    const diff = daysUntil(ds);
-
-    document.getElementById('modalDate').textContent = events.map(e => e.name).join(', ');
-    document.getElementById('modalPct').textContent =
-      dateObj.toLocaleDateString(undefined, { weekday:'long', month:'long', day:'numeric' }) + ' · ' + countdownLabel(diff);
-
-    const body = document.getElementById('modalBody');
-    body.innerHTML = '';
-    events.forEach(ev => {
-      const row = document.createElement('div');
-      row.className = 'modal-task';
-      const name = document.createElement('span');
-      name.className = 'name';
-      name.textContent = ev.name;
-      const del = document.createElement('button');
-      del.className = 'icon-btn';
-      del.setAttribute('aria-label','Delete event');
-      del.textContent = '✕';
-      del.addEventListener('click', () => deleteEvent(ev.id));
-      row.appendChild(name);
-      row.appendChild(del);
-      body.appendChild(row);
-    });
-    overlay.classList.add('open');
+  async function addEventOnDate(ds, name){
+    state.events.push({ id: uid(), name, date: ds });
+    setStatus('saving…');
+    await saveEvents();
+    setStatus('saved');
   }
 
+  // One modal for any day: shows/add an event for that date, plus the
+  // day's task history when the date isn't in the future.
   function openDayModal(ds){
-    const entry = state.completions[ds];
     const overlay = document.getElementById('overlay');
     const dateObj = new Date(ds + 'T00:00:00');
+    const tStr = todayStr();
+    const isFuture = ds > tStr;
+    const dayEvents = state.events.filter(e => e.date === ds);
+
     document.getElementById('modalDate').textContent =
       dateObj.toLocaleDateString(undefined, { weekday:'long', month:'long', day:'numeric' });
 
     const body = document.getElementById('modalBody');
     body.innerHTML = '';
 
-    if(!entry || !entry.tasks || entry.tasks.length === 0){
-      document.getElementById('modalPct').textContent = 'no tasks recorded';
-      const p = document.createElement('div');
-      p.className = 'empty-note';
-      p.textContent = 'No tasks were on the list this day.';
-      body.appendChild(p);
+    // --- event block ---
+    if(dayEvents.length){
+      const h = document.createElement('div');
+      h.className = 'modal-section-title';
+      h.textContent = 'Event';
+      body.appendChild(h);
+      dayEvents.forEach(ev => {
+        const row = document.createElement('div');
+        row.className = 'modal-task';
+        const name = document.createElement('span');
+        name.className = 'name';
+        name.textContent = ev.name;
+        const count = document.createElement('span');
+        count.className = 'ecount';
+        count.textContent = countdownLabel(daysUntil(ds));
+        const del = document.createElement('button');
+        del.className = 'icon-btn';
+        del.setAttribute('aria-label','Delete event');
+        del.textContent = '✕';
+        del.addEventListener('click', async () => {
+          await deleteEvent(ev.id);
+          renderCalendar();
+          openDayModal(ds);
+        });
+        row.appendChild(name);
+        row.appendChild(count);
+        row.appendChild(del);
+        body.appendChild(row);
+      });
     } else {
-      const pct = Math.round((entry.done.length / entry.tasks.length) * 100);
-      document.getElementById('modalPct').textContent =
-        entry.done.length + ' of ' + entry.tasks.length + ' done · ' + pct + '%';
+      const addRow = document.createElement('div');
+      addRow.className = 'add-row modal-add-event';
+      const input = document.createElement('input');
+      input.type = 'text';
+      input.placeholder = 'Add event on this day';
+      input.maxLength = 60;
+      const btn = document.createElement('button');
+      btn.className = 'add-btn';
+      btn.setAttribute('aria-label','Add event');
+      btn.textContent = '+';
+      const submit = async () => {
+        const v = input.value.trim();
+        if(!v) return;
+        await addEventOnDate(ds, v);
+        renderCalendar();
+        openDayModal(ds);
+      };
+      btn.addEventListener('click', submit);
+      input.addEventListener('keydown', e => { if(e.key === 'Enter') submit(); });
+      addRow.appendChild(input);
+      addRow.appendChild(btn);
+      body.appendChild(addRow);
+    }
 
-      const doneTasks = entry.tasks.filter(t => entry.done.includes(t.id));
-      const missedTasks = entry.tasks.filter(t => !entry.done.includes(t.id));
+    // --- task history (only for today/past) ---
+    if(isFuture){
+      document.getElementById('modalPct').textContent = dayEvents.length ? countdownLabel(daysUntil(ds)) : 'upcoming';
+    } else {
+      const entry = state.completions[ds];
+      if(!entry || !entry.tasks || entry.tasks.length === 0){
+        document.getElementById('modalPct').textContent = 'no tasks recorded';
+        const p = document.createElement('div');
+        p.className = 'empty-note';
+        p.textContent = 'No tasks were on the list this day.';
+        body.appendChild(p);
+      } else {
+        const pct = Math.round((entry.done.length / entry.tasks.length) * 100);
+        document.getElementById('modalPct').textContent =
+          entry.done.length + ' of ' + entry.tasks.length + ' done · ' + pct + '%';
 
-      if(doneTasks.length){
-        const h = document.createElement('div');
-        h.className = 'modal-section-title';
-        h.textContent = 'Completed';
-        body.appendChild(h);
-        doneTasks.forEach(t => {
-          const row = document.createElement('div');
-          row.className = 'modal-task done';
-          row.innerHTML = '<span class="mark">✓</span><span class="name">' + escapeHtml(t.name) + '</span>';
-          body.appendChild(row);
-        });
-      }
-      if(missedTasks.length){
-        const h = document.createElement('div');
-        h.className = 'modal-section-title';
-        h.textContent = 'Missed';
-        body.appendChild(h);
-        missedTasks.forEach(t => {
-          const row = document.createElement('div');
-          row.className = 'modal-task missed';
-          row.innerHTML = '<span class="mark">✕</span><span class="name">' + escapeHtml(t.name) + '</span>';
-          body.appendChild(row);
-        });
+        const doneTasks = entry.tasks.filter(t => entry.done.includes(t.id));
+        const missedTasks = entry.tasks.filter(t => !entry.done.includes(t.id));
+
+        if(doneTasks.length){
+          const h = document.createElement('div');
+          h.className = 'modal-section-title';
+          h.textContent = 'Completed';
+          body.appendChild(h);
+          doneTasks.forEach(t => {
+            const row = document.createElement('div');
+            row.className = 'modal-task done';
+            row.innerHTML = '<span class="mark">✓</span><span class="name">' + escapeHtml(t.name) + '</span>';
+            body.appendChild(row);
+          });
+        }
+        if(missedTasks.length){
+          const h = document.createElement('div');
+          h.className = 'modal-section-title';
+          h.textContent = 'Missed';
+          body.appendChild(h);
+          missedTasks.forEach(t => {
+            const row = document.createElement('div');
+            row.className = 'modal-task missed';
+            row.innerHTML = '<span class="mark">✕</span><span class="name">' + escapeHtml(t.name) + '</span>';
+            body.appendChild(row);
+          });
+        }
       }
     }
+
     overlay.classList.add('open');
   }
  
@@ -1005,7 +961,6 @@
       saveCompletions();
       renderToday();
       renderCalendar();
-      renderEvents();
       setStatus('new day started · saved');
     }
   }
@@ -1022,13 +977,6 @@
     t.style.display = show ? 'inline-block' : 'none';
     btn.classList.toggle('active', show);
     if(show) t.focus();
-  });
-  document.getElementById('addEventBtn').addEventListener('click', addEvent);
-  document.getElementById('newEventDate').addEventListener('keydown', (e) => {
-    if(e.key === 'Enter') addEvent();
-  });
-  document.getElementById('newEventInput').addEventListener('keydown', (e) => {
-    if(e.key === 'Enter') addEvent();
   });
   document.getElementById('prevMonth').addEventListener('click', () => {
     viewMonth--; if(viewMonth < 0){ viewMonth = 11; viewYear--; }
@@ -1056,7 +1004,6 @@
     await saveCompletions();
     renderToday();
     renderCalendar();
-    renderEvents();
     setStatus('saved');
     loaded = true;
     setInterval(checkMidnightRollover, 30000); // check every 30s for date change
