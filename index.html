@@ -181,11 +181,13 @@
 
   .add-row{
     display:flex; gap: 8px; margin-top: 14px;
+    flex-wrap: wrap;
     position: relative;
     z-index: 5;
   }
   .add-row input{
     flex: 1;
+    min-width: 70px;
     background: var(--surface-2);
     border: 1px solid var(--border);
     border-radius: 6px;
@@ -468,7 +470,7 @@
 
     .add-row{ flex: none; margin-top: 6px; }
     .add-row input[type="text"], .add-btn, .time-toggle{ padding-top: 0; padding-bottom: 0; height: 30px; }
-    .time-input{ height: 30px; }
+    .time-input{ height: 30px; width: 92px; }
 
     .cal-header{ flex: none; margin-bottom: 6px; }
     .cal-title{ font-size: 13px; }
