@@ -19,12 +19,13 @@
     --accent: #ffd633;
     --accent-soft: rgba(255, 214, 51, 0.16);
 
-    --score-100: #00e6e6; /* Cyan */
-    --score-80: #00a3cc;
-    --score-60: #ffd633; /* Yellow */
-    --score-40: #cc9900;
-    --score-0: #001224;
-    --score-none: #001f3f;
+    /* Original Progress Colors Restored */
+    --score-100: #1b5e20;
+    --score-80: #5aa85e;
+    --score-60: #e0b038;
+    --score-40: #d97a63;
+    --score-0: #8b2a2a;
+    --score-none: #322f2b;
     --cyan: #00ffff;
     --cyan-soft: rgba(0, 255, 255, 0.16);
 
@@ -144,7 +145,7 @@
   }
   .checkbox.done::after{
     content: '✓';
-    color: var(--bg);
+    color: #ede6d6;
     font-size: 13px;
     font-weight: 700;
   }
@@ -321,12 +322,13 @@
     border-color: var(--accent);
     box-shadow: 0 0 0 1px var(--accent);
   }
-  .cal-cell.s100, .cal-cell.s0{ color: var(--bg); }
+  /* Reverted to the original color values */
+  .cal-cell.s100, .cal-cell.s0{ color: #f3ede0; }
   .cal-cell.s100{ background: var(--score-100); }
-  .cal-cell.s80{ background: var(--score-80); color: var(--bg); }
-  .cal-cell.s60{ background: var(--score-60); color: var(--bg); }
-  .cal-cell.s40{ background: var(--score-40); color: var(--bg); }
-  .cal-cell.s0{ background: var(--score-0); color: var(--text); }
+  .cal-cell.s80{ background: var(--score-80); color: #1c1b1a; }
+  .cal-cell.s60{ background: var(--score-60); color: #1c1b1a; }
+  .cal-cell.s40{ background: var(--score-40); color: #1c1b1a; }
+  .cal-cell.s0{ background: var(--score-0); }
   .cal-cell.event{
     background: var(--cyan);
     color: var(--bg);
