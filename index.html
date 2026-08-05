@@ -406,6 +406,24 @@
     margin-top: 28px;
   }
 
+  .fullscreen-btn{
+    position: fixed;
+    top: 14px;
+    right: 14px;
+    width: 34px; height: 34px;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 1;
+    opacity: 0.85;
+    z-index: 40;
+  }
+  .fullscreen-btn:hover{ color: var(--text); border-color: var(--accent); opacity: 1; }
+
   /* ---- Landscape: fit everything in the viewport, no page scroll ---- */
   @media (orientation: landscape) and (max-height: 820px){
     html, body{ height: 100%; overflow: hidden; }
@@ -471,6 +489,7 @@
 
     .legend{ flex: none; margin-top: 6px; padding-top: 6px; gap: 6px; font-size: 8.5px; }
     .status-line{ flex: none; margin-top: 4px; font-size: 9.5px; }
+    .fullscreen-btn{ top: 8px; right: 8px; width: 28px; height: 28px; font-size: 14px; }
   }
   @media (orientation: landscape) and (max-height: 820px) and (max-width: 760px){
     .grid{ grid-template-rows: minmax(0, 1fr) minmax(0, 1fr); }
@@ -478,6 +497,7 @@
 </style>
 </head>
 <body>
+<button class="fullscreen-btn" id="fullscreenBtn" aria-label="Toggle fullscreen" title="Toggle fullscreen">⛶</button>
 <div class="wrap">
 
   <header class="top">
@@ -978,6 +998,33 @@
     btn.classList.toggle('active', show);
     if(show) t.focus();
   });
+  // ---------- fullscreen ----------
+  const fsBtn = document.getElementById('fullscreenBtn');
+  const canFullscreen = !!(document.documentElement.requestFullscreen ||
+    document.documentElement.webkitRequestFullscreen ||
+    document.documentElement.msRequestFullscreen);
+
+  if(!canFullscreen){
+    fsBtn.style.display = 'none';
+  } else {
+    fsBtn.addEventListener('click', () => {
+      const isFs = document.fullscreenElement || document.webkitFullscreenElement;
+      if(!isFs){
+        const el = document.documentElement;
+        (el.requestFullscreen || el.webkitRequestFullscreen || el.msRequestFullscreen).call(el);
+      } else {
+        (document.exitFullscreen || document.webkitExitFullscreen || document.msExitFullscreen).call(document);
+      }
+    });
+    const syncFsIcon = () => {
+      const isFs = document.fullscreenElement || document.webkitFullscreenElement;
+      fsBtn.textContent = isFs ? '⤢' : '⛶';
+      fsBtn.title = isFs ? 'Exit fullscreen' : 'Enter fullscreen';
+    };
+    document.addEventListener('fullscreenchange', syncFsIcon);
+    document.addEventListener('webkitfullscreenchange', syncFsIcon);
+  }
+
   document.getElementById('prevMonth').addEventListener('click', () => {
     viewMonth--; if(viewMonth < 0){ viewMonth = 11; viewYear--; }
     renderCalendar();
