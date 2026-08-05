@@ -9,25 +9,25 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    /* Butter and Green Theme from 1000086306.jpg */
-    --bg: #013E37;
-    --surface: #013630;
-    --surface-2: #012b26;
-    --border: #02534a;
-    --text: #FFEFB3;
-    --text-muted: #bdae79;
-    --accent: #FFEFB3;
-    --accent-soft: rgba(255, 239, 179, 0.16);
+    /* Slate & Teal Gradient Theme from 1000086308.jpg */
+    --bg: linear-gradient(180deg, #2C3E50 0%, #4CA1AF 100%);
+    --surface: rgba(44, 62, 80, 0.65); /* Translucent dark slate */
+    --surface-2: rgba(255, 255, 255, 0.1);
+    --border: rgba(255, 255, 255, 0.2);
+    --text: #f8fafc;
+    --text-muted: #cbd5e1;
+    --accent: #4CA1AF;
+    --accent-soft: rgba(76, 161, 175, 0.2);
 
-    /* Original Progress Colors Restored */
-    --score-100: #1b5e20;
-    --score-80: #5aa85e;
-    --score-60: #e0b038;
-    --score-40: #d97a63;
-    --score-0: #8b2a2a;
-    --score-none: rgba(0, 0, 0, 0.2);
-    --cyan: #FFEFB3;
-    --cyan-soft: rgba(255, 239, 179, 0.16);
+    /* Monochromatic Teal Progress Scale */
+    --score-100: #4CA1AF; /* Task tick color */
+    --score-80: #408d99;
+    --score-60: #347883;
+    --score-40: #29636c;
+    --score-0: #1c4148;
+    --score-none: rgba(0, 0, 0, 0.25);
+    --cyan: #88e0ef; /* Brighter accent for events */
+    --cyan-soft: rgba(136, 224, 239, 0.2);
 
     --font-display: 'Fraunces', Georgia, serif;
     --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -38,6 +38,7 @@
   html,body{ margin:0; padding:0; }
   body{
     background: var(--bg);
+    background-attachment: fixed; /* Keeps gradient full-screen when scrolling */
     color: var(--text);
     font-family: var(--font-body);
     min-height: 100vh;
@@ -57,7 +58,7 @@
     font-size: 11px;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--accent);
+    color: var(--cyan);
     margin: 0 0 8px 0;
   }
   h1{
@@ -101,6 +102,8 @@
 
   .card{
     background: var(--surface);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border: 1px solid var(--border);
     border-radius: 10px;
     padding: 22px;
@@ -145,9 +148,9 @@
   }
   .checkbox.done::after{
     content: '✓';
-    color: #ede6d6;
+    color: #2C3E50; /* Dark checkmark on vibrant teal background */
     font-size: 13px;
-    font-weight: 700;
+    font-weight: 800;
   }
   .checkbox:focus-visible, .icon-btn:focus-visible, .nav-btn:focus-visible, button:focus-visible, input:focus-visible{
     outline: 2px solid var(--accent);
@@ -201,7 +204,7 @@
   .add-row input:focus{ border-color: var(--accent); outline: none; }
   .add-btn{
     background: var(--accent);
-    color: var(--bg);
+    color: #1a252f;
     border: none;
     border-radius: 6px;
     padding: 0 16px;
@@ -209,7 +212,7 @@
     font-size: 18px;
     cursor: pointer;
   }
-  .add-btn:hover{ filter: brightness(1.08); }
+  .add-btn:hover{ filter: brightness(1.15); }
 
   .empty-note{
     color: var(--text-muted);
@@ -220,13 +223,12 @@
   .task-time{
     font-family: var(--font-mono);
     font-size: 11px;
-    color: var(--bg);
-    background: var(--accent);
+    color: var(--cyan);
+    background: var(--cyan-soft);
     padding: 2px 6px;
     border-radius: 4px;
     margin-right: 6px;
     white-space: nowrap;
-    font-weight: 700;
   }
 
   .time-toggle{
@@ -252,12 +254,11 @@
   .ecount{
     font-family: var(--font-mono);
     font-size: 11px;
-    color: var(--bg);
-    background: var(--accent);
+    color: var(--cyan);
+    background: var(--cyan-soft);
     padding: 2px 7px;
     border-radius: 10px;
     white-space: nowrap;
-    font-weight: 600;
   }
   .modal-add-event{ margin-top: 0; }
 
@@ -280,7 +281,7 @@
     cursor: pointer;
     font-size: 14px;
   }
-  .nav-btn:hover{ border-color: var(--accent); color: var(--bg); background: var(--accent); }
+  .nav-btn:hover{ border-color: var(--accent); color: var(--accent); }
 
   .dow-row{
     display:grid; grid-template-columns: repeat(7,1fr);
@@ -324,21 +325,21 @@
     border-color: var(--accent);
     box-shadow: 0 0 0 1px var(--accent);
   }
-  /* Reverted to the original color values */
-  .cal-cell.s100, .cal-cell.s0{ color: #f3ede0; }
+  /* Themed Monochromatic Heatmap */
+  .cal-cell.s100, .cal-cell.s80, .cal-cell.s60, .cal-cell.s40 { color: #f8fafc; }
   .cal-cell.s100{ background: var(--score-100); }
-  .cal-cell.s80{ background: var(--score-80); color: #1c1b1a; }
-  .cal-cell.s60{ background: var(--score-60); color: #1c1b1a; }
-  .cal-cell.s40{ background: var(--score-40); color: #1c1b1a; }
-  .cal-cell.s0{ background: var(--score-0); }
+  .cal-cell.s80{ background: var(--score-80); }
+  .cal-cell.s60{ background: var(--score-60); }
+  .cal-cell.s40{ background: var(--score-40); }
+  .cal-cell.s0{ background: var(--score-0); color: #cbd5e1; }
   .cal-cell.event{
-    background: var(--accent);
-    color: var(--bg);
+    background: var(--cyan);
+    color: #1a252f;
     font-weight: 700;
   }
   .cal-cell.event:not(.pad):hover{
     transform: scale(1.06);
-    border-color: var(--accent);
+    border-color: var(--cyan);
   }
 
   .legend{
@@ -359,13 +360,15 @@
   /* Modal */
   .overlay{
     position: fixed; inset: 0;
-    background: rgba(0,0,0,0.75);
+    background: rgba(0,0,0,0.7);
     display:none; align-items:center; justify-content:center;
     z-index: 50; padding: 20px;
   }
   .overlay.open{ display:flex; }
   .modal{
-    background: var(--surface);
+    background: #1c2833;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border: 1px solid var(--border);
     border-radius: 10px;
     max-width: 420px; width: 100%;
@@ -430,7 +433,7 @@
     font-size: 15px;
     line-height: 1;
   }
-  .fullscreen-btn:hover{ color: var(--bg); background: var(--accent); border-color: var(--accent); }
+  .fullscreen-btn:hover{ color: var(--text); border-color: var(--accent); }
 
   /* ---- Landscape: fit everything in the viewport, no page scroll ---- */
   @media (orientation: landscape) and (max-height: 820px){
@@ -552,7 +555,7 @@
         <span><span class="sw" style="background:var(--score-40)"></span>40–59%</span>
         <span><span class="sw" style="background:var(--score-0)"></span>0–39%</span>
         <span><span class="sw" style="background:var(--score-none)"></span>no data</span>
-        <span><span class="sw" style="background:var(--accent)"></span>event</span>
+        <span><span class="sw" style="background:var(--cyan)"></span>event</span>
       </div>
     </div>
   </div>
