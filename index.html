@@ -102,7 +102,10 @@
     border: 1px solid var(--border);
     border-radius: 10px;
     padding: 22px;
+    position: relative;
+    z-index: 1;
   }
+  .tasks-card{ z-index: 5; }
   .card h2{
     font-family: var(--font-display);
     font-size: 18px;
@@ -178,6 +181,8 @@
 
   .add-row{
     display:flex; gap: 8px; margin-top: 14px;
+    position: relative;
+    z-index: 5;
   }
   .add-row input{
     flex: 1;
@@ -449,7 +454,7 @@
   </header>
 
   <div class="grid">
-    <div class="card">
+    <div class="card tasks-card">
       <h2>Today's tasks</h2>
       <div id="taskList"></div>
       <div class="add-row">
@@ -1002,4 +1007,3 @@
 </script>
 </body>
 </html>
- 
