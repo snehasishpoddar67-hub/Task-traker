@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    /* Slate & Teal Gradient Theme from 1000086308.jpg */
+    /* Slate & Teal Gradient Theme */
     --bg: linear-gradient(180deg, #2C3E50 0%, #4CA1AF 100%);
     --surface: rgba(44, 62, 80, 0.65); /* Translucent dark slate */
     --surface-2: rgba(255, 255, 255, 0.1);
@@ -19,13 +19,14 @@
     --accent: #4CA1AF;
     --accent-soft: rgba(76, 161, 175, 0.2);
 
-    /* Monochromatic Teal Progress Scale */
-    --score-100: #4CA1AF; /* Task tick color */
-    --score-80: #408d99;
-    --score-60: #347883;
-    --score-40: #29636c;
-    --score-0: #1c4148;
+    /* Original Progress Colors Restored for Calendar */
+    --score-100: #1b5e20;
+    --score-80: #5aa85e;
+    --score-60: #e0b038;
+    --score-40: #d97a63;
+    --score-0: #8b2a2a;
     --score-none: rgba(0, 0, 0, 0.25);
+    
     --cyan: #88e0ef; /* Brighter accent for events */
     --cyan-soft: rgba(136, 224, 239, 0.2);
 
@@ -142,9 +143,10 @@
     transition: all 0.15s ease;
     background: transparent;
   }
+  /* Task Checkbox explicitly using the theme accent (teal) */
   .checkbox.done{
-    background: var(--score-100);
-    border-color: var(--score-100);
+    background: var(--accent);
+    border-color: var(--accent);
   }
   .checkbox.done::after{
     content: '✓';
@@ -325,13 +327,14 @@
     border-color: var(--accent);
     box-shadow: 0 0 0 1px var(--accent);
   }
-  /* Themed Monochromatic Heatmap */
-  .cal-cell.s100, .cal-cell.s80, .cal-cell.s60, .cal-cell.s40 { color: #f8fafc; }
+  /* Original Heatmap colors restored */
+  .cal-cell.s100, .cal-cell.s0{ color: #f8fafc; }
   .cal-cell.s100{ background: var(--score-100); }
-  .cal-cell.s80{ background: var(--score-80); }
-  .cal-cell.s60{ background: var(--score-60); }
-  .cal-cell.s40{ background: var(--score-40); }
-  .cal-cell.s0{ background: var(--score-0); color: #cbd5e1; }
+  .cal-cell.s80{ background: var(--score-80); color: #1a252f; }
+  .cal-cell.s60{ background: var(--score-60); color: #1a252f; }
+  .cal-cell.s40{ background: var(--score-40); color: #1a252f; }
+  .cal-cell.s0{ background: var(--score-0); }
+  
   .cal-cell.event{
     background: var(--cyan);
     color: #1a252f;
@@ -404,7 +407,7 @@
   }
   .modal-task .name{ flex: 1; }
   .modal-task .mark{ font-size: 13px; }
-  .modal-task.done .mark{ color: var(--score-100); }
+  .modal-task.done .mark{ color: var(--accent); } /* Also decoupled from score-100 here */
   .modal-task.missed .mark{ color: var(--score-0); }
   .modal-task.missed span.name{ color: var(--text-muted); }
 
