@@ -9,13 +9,13 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    /* Cyan, Blue, and Yellow Theme */
-    --bg: #00172e;
-    --surface: #00264d;
-    --surface-2: #003b73;
-    --border: #00509e;
-    --text: #e6f4f1;
-    --text-muted: #80bfff;
+    /* Gradient Background Theme from 1000086305.jpg */
+    --bg: linear-gradient(180deg, #02060E 0%, #0356C5 100%);
+    --surface: rgba(2, 6, 14, 0.5);
+    --surface-2: rgba(255, 255, 255, 0.08);
+    --border: rgba(255, 255, 255, 0.15);
+    --text: #f0f6fc;
+    --text-muted: #8eb2db;
     --accent: #ffd633;
     --accent-soft: rgba(255, 214, 51, 0.16);
 
@@ -25,7 +25,7 @@
     --score-60: #e0b038;
     --score-40: #d97a63;
     --score-0: #8b2a2a;
-    --score-none: #322f2b;
+    --score-none: rgba(0, 0, 0, 0.3);
     --cyan: #00ffff;
     --cyan-soft: rgba(0, 255, 255, 0.16);
 
@@ -38,6 +38,7 @@
   html,body{ margin:0; padding:0; }
   body{
     background: var(--bg);
+    background-attachment: fixed;
     color: var(--text);
     font-family: var(--font-body);
     min-height: 100vh;
@@ -101,6 +102,8 @@
 
   .card{
     background: var(--surface);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border: 1px solid var(--border);
     border-radius: 10px;
     padding: 22px;
@@ -201,7 +204,7 @@
   .add-row input:focus{ border-color: var(--accent); outline: none; }
   .add-btn{
     background: var(--accent);
-    color: var(--bg);
+    color: #02060E;
     border: none;
     border-radius: 6px;
     padding: 0 16px;
@@ -331,7 +334,7 @@
   .cal-cell.s0{ background: var(--score-0); }
   .cal-cell.event{
     background: var(--cyan);
-    color: var(--bg);
+    color: #02060E;
     font-weight: 700;
   }
   .cal-cell.event:not(.pad):hover{
@@ -363,7 +366,7 @@
   }
   .overlay.open{ display:flex; }
   .modal{
-    background: var(--surface);
+    background: #032047;
     border: 1px solid var(--border);
     border-radius: 10px;
     max-width: 420px; width: 100%;
