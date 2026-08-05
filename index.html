@@ -9,23 +9,24 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg: #1c1b1a;
-    --surface: #242220;
-    --surface-2: #2c2a27;
-    --border: #3a3733;
-    --text: #ede6d6;
-    --text-muted: #9c9488;
-    --accent: #e8a33d;
-    --accent-soft: rgba(232,163,61,0.16);
+    /* Cyan, Blue, and Yellow Theme */
+    --bg: #00172e;
+    --surface: #00264d;
+    --surface-2: #003b73;
+    --border: #00509e;
+    --text: #e6f4f1;
+    --text-muted: #80bfff;
+    --accent: #ffd633;
+    --accent-soft: rgba(255, 214, 51, 0.16);
 
-    --score-100: #1b5e20;
-    --score-80: #5aa85e;
-    --score-60: #e0b038;
-    --score-40: #d97a63;
-    --score-0: #8b2a2a;
-    --score-none: #322f2b;
-    --cyan: #4fd1d1;
-    --cyan-soft: rgba(79,209,209,0.16);
+    --score-100: #00e6e6; /* Cyan */
+    --score-80: #00a3cc;
+    --score-60: #ffd633; /* Yellow */
+    --score-40: #cc9900;
+    --score-0: #001224;
+    --score-none: #001f3f;
+    --cyan: #00ffff;
+    --cyan-soft: rgba(0, 255, 255, 0.16);
 
     --font-display: 'Fraunces', Georgia, serif;
     --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -143,7 +144,7 @@
   }
   .checkbox.done::after{
     content: '✓';
-    color: #ede6d6;
+    color: var(--bg);
     font-size: 13px;
     font-weight: 700;
   }
@@ -199,7 +200,7 @@
   .add-row input:focus{ border-color: var(--accent); outline: none; }
   .add-btn{
     background: var(--accent);
-    color: #1c1b1a;
+    color: var(--bg);
     border: none;
     border-radius: 6px;
     padding: 0 16px;
@@ -320,15 +321,15 @@
     border-color: var(--accent);
     box-shadow: 0 0 0 1px var(--accent);
   }
-  .cal-cell.s100, .cal-cell.s0{ color: #f3ede0; }
+  .cal-cell.s100, .cal-cell.s0{ color: var(--bg); }
   .cal-cell.s100{ background: var(--score-100); }
-  .cal-cell.s80{ background: var(--score-80); color: #1c1b1a; }
-  .cal-cell.s60{ background: var(--score-60); color: #1c1b1a; }
-  .cal-cell.s40{ background: var(--score-40); color: #1c1b1a; }
-  .cal-cell.s0{ background: var(--score-0); }
+  .cal-cell.s80{ background: var(--score-80); color: var(--bg); }
+  .cal-cell.s60{ background: var(--score-60); color: var(--bg); }
+  .cal-cell.s40{ background: var(--score-40); color: var(--bg); }
+  .cal-cell.s0{ background: var(--score-0); color: var(--text); }
   .cal-cell.event{
     background: var(--cyan);
-    color: #10302f;
+    color: var(--bg);
     font-weight: 700;
   }
   .cal-cell.event:not(.pad):hover{
@@ -354,7 +355,7 @@
   /* Modal */
   .overlay{
     position: fixed; inset: 0;
-    background: rgba(0,0,0,0.55);
+    background: rgba(0,0,0,0.7);
     display:none; align-items:center; justify-content:center;
     z-index: 50; padding: 20px;
   }
@@ -439,8 +440,8 @@
       height: calc(100dvh - 16px);
     }
 
-    header.top{ padding-bottom: 6px; margin-bottom: 8px; flex: none; }
-    .eyebrow{ display: none; }
+    header.top{ padding-bottom: 6px; margin-bottom: 8px; }
+    .eyebrow{ display: flex; }
     h1{ font-size: 20px; }
     .today-date{ margin-top: 2px; font-size: 10.5px; }
     .today-score .big{ font-size: 18px; }
@@ -504,7 +505,7 @@
 
   <header class="top">
     <div>
-      <p class="eyebrow">Task Register</p>
+      <p class="eyebrow"> Arther's Task Register</p>
       <h1>Daily Ledger</h1>
       <div class="today-date" id="todayDateLabel">—</div>
     </div>
